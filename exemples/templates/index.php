@@ -6,6 +6,7 @@ define('APP_PATH', realpath('../..'));
 require APP_PATH . '/vendor/autoload.php';
 
 $view = new \BobbyFramework\Web\View();
+$view->setPath(APP_PATH . '/exemples/templates/7723/html/');
 
 $page = new \BobbyFramework\Web\Page();
 //ADD detail Page
@@ -34,7 +35,6 @@ $assets->addJs([
 ]);
 
 $breadcrumb = new \BobbyFramework\Web\Component\Breadcrumb($view);
-$breadcrumb->setPath(APP_PATH . '/exemples/templates/7723/html/Elements/');
 $breadcrumb->add('page');
 $breadcrumb->add('dsdsd');
 $breadcrumb->active('dsdsd');
@@ -110,7 +110,6 @@ $row->addCols($col);
 $col = new \BobbyFramework\Web\Component\Col();
 
 $slider = new \BobbyFramework\Web\Component\Slider\Slider($view);
-$slider->setPath(APP_PATH . '/exemples/templates/7723/html/Elements/');
 
 $slide = new \BobbyFramework\Web\Component\Slider\Slide();
 $slide->setHref('jkdsdd');
@@ -141,7 +140,6 @@ $page->addRow($row);
 //INITIALIZE TEMPLATE/VIEW
 
 
-$view->setPath(APP_PATH . '/exemples/templates/7723/html');
 //set layout
 $view->layout("layouts/layout");
 //set partials

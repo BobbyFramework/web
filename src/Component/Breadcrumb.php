@@ -13,7 +13,7 @@ class Breadcrumb extends Component implements ComponentInterface
 {
 
     protected $_optionsDefault = [
-        "templateName" => 'element-breadcrumb'
+        "templateName" => 'Elements/element-breadcrumb'
     ];
 
     public function __construct(ViewInterface $view,array $options = [])

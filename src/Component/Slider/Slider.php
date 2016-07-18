@@ -11,7 +11,7 @@ class Slider extends Component implements ComponentInterface
     protected $_slide = null;
 
     protected $_optionsDefault = [
-        "templateName" => 'element-slider'
+        "templateName" => 'Elements/element-slider'
     ];
 
     public function __construct(ViewInterface $view, array $options = [])

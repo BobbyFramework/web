@@ -1,6 +1,6 @@
 <html>
 <head>
-    <?php $view->displayView("partials/css"); ?>
+    <?php $view->display("partials/css"); ?>
 </head>
 <body>
 <?php echo $view->getPartial('header_1'); ?>
