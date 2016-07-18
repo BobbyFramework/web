@@ -4,6 +4,7 @@ namespace BobbyFramework\Web;
 
 class View implements ViewInterface
 {
+    const NO_VIEW= 1;
     /**
      * @var array
      */
@@ -119,13 +120,14 @@ class View implements ViewInterface
         return $this->_path;
     }
 
-    public function get($file, $data = array())
+    public function get($file, $data = array(),$usingPath = true)
     {
-        $file = $this->getPath() . $file . '.php';
+        if(true === $usingPath){
+            $file = $this->getPath() . $file . '.php';
+        }
 
         if (!file_exists($file)) {
-            throw new \InvalidArgumentException('la view demander nexiste pas ' . $file);
-
+            throw new \RuntimeException('la view demander nexiste pas ' . $file,self::NO_VIEW);
         }
 
         $view = $this;
@@ -139,7 +141,6 @@ class View implements ViewInterface
         ob_end_clean();
         return $content;
     }
-
 
     public function display($page, array $data = array())
     {
