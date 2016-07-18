@@ -2,27 +2,39 @@
 
 namespace BobbyFramework\Web;
 
-
-Abstract class Component extends View
+/**
+ * Class Component
+ * @package BobbyFramework\Web
+ */
+Abstract class Component
 {
-    /**
-     * @var
-     */
+    /** @var array $_options */
     protected $_options = array();
+    /** @var ViewInterface $_adapter */
+    protected $_adapter;
 
     /**
      * Validator constructor.
      * @param $options
      */
-    public function __construct(array $options = [])
+    public function __construct(ViewInterface $view, array $options = [])
     {
+        $this->_adapter = $view;
         $this->setOptions($options);
     }
 
     /**
-     * @param $options
+     * @return ViewInterface
      */
-    public function setOptions($options)
+    public function getAdapter()
+    {
+        return $this->_adapter;
+    }
+
+    /**
+     * @param array $options
+     */
+    public function setOptions(array $options)
     {
         $this->_options = $options;
     }

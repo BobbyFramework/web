@@ -1,4 +1,3 @@
-
 <?php
 
 
@@ -6,6 +5,7 @@ define('APP_PATH', realpath('../..'));
 
 require APP_PATH . '/vendor/autoload.php';
 
+$view = new \BobbyFramework\Web\View();
 
 $page = new \BobbyFramework\Web\Page();
 //ADD detail Page
@@ -13,28 +13,28 @@ $page->setTitle('titre d ela page');
 $page->setMetaDescription('dghsjdshghdgd');
 
 //ADD assets page
-$assets  = new \BobbyFramework\Web\Component\Assets();
+$assets = new \BobbyFramework\Web\Component\Assets();
 $assets->addCss([
     'href' => 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css',
     'media' => 'all',
-    'integrity'=> "sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7",
-    'crossorigin'=>"anonymous"
+    'integrity' => "sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7",
+    'crossorigin' => "anonymous"
 ]);
 $assets->addCss([
     'href' => 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css',
     'media' => 'all',
-    'integrity'=> "sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r",
-    'crossorigin'=>"anonymous"
+    'integrity' => "sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r",
+    'crossorigin' => "anonymous"
 ]);
 
 $assets->addJs([
     'src' => 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js',
-    'integrity'=> "sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS",
-    'crossorigin'=>"anonymous"
+    'integrity' => "sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS",
+    'crossorigin' => "anonymous"
 ]);
 
-$breadcrumb = new \BobbyFramework\Web\Component\Breadcrumb();
-$breadcrumb->setPath(APP_PATH.'/exemples/templates/7723/html/Elements/');
+$breadcrumb = new \BobbyFramework\Web\Component\Breadcrumb($view);
+$breadcrumb->setPath(APP_PATH . '/exemples/templates/7723/html/Elements/');
 $breadcrumb->add('page');
 $breadcrumb->add('dsdsd');
 $breadcrumb->active('dsdsd');
@@ -72,7 +72,6 @@ $row->addCols($col);
 $page->addRow($row);
 
 
-
 //ADD ROW CONTENT
 $row = new \BobbyFramework\Web\Component\Row();
 $row->setTitle('Titre du paragraphe');
@@ -86,7 +85,6 @@ $col->setContent("sddsqsdqsdsd");
 $row->addCols($col);
 
 $page->addRow($row);
-
 
 
 //ADD ROW CONTENT
@@ -111,10 +109,10 @@ $row->addCols($col);
 
 $col = new \BobbyFramework\Web\Component\Col();
 
-$slider = new \BobbyFramework\Web\Component\Slider\Slider();
-$slider->setPath(APP_PATH.'/exemples/templates/7723/html/Elements/');
+$slider = new \BobbyFramework\Web\Component\Slider\Slider($view);
+$slider->setPath(APP_PATH . '/exemples/templates/7723/html/Elements/');
 
-$slide= new \BobbyFramework\Web\Component\Slider\Slide();
+$slide = new \BobbyFramework\Web\Component\Slider\Slide();
 $slide->setHref('jkdsdd');
 $slide->setImage('dsdsds');
 $slide->setImageThumbnail('sds');
@@ -141,28 +139,26 @@ $page->addRow($row);
 
 
 //INITIALIZE TEMPLATE/VIEW
-$template = new \BobbyFramework\Web\Template();
 
-$template->setPath(APP_PATH.'/exemples/templates/');
-$template->setTpl('7723');
 
-$template->layout("layouts/layout");
+$view->setPath(APP_PATH . '/exemples/templates/7723/html');
+//set layout
+$view->layout("layouts/layout");
+//set partials
+$view->setPartial('nav', 'partials/nav');
+$view->setPartial('header_1', 'partials/header/header_1');
+$view->setPartial('footer_1', 'partials/footer/footer_1');
 
-$template->setPartial('nav', 'partials/nav');
-
-$template->setPartial('header_1', 'partials/header/header_1');
-$template->setPartial('footer_1', 'partials/footer/footer_1');
-
-$color = [
+//set vAR
+$view->setVar('color', [
     'style="background:red;"',
     'style="background:blue;"',
     'style="background:green;"'
-];
+]);
+$view->setVar('page', $page);
 
-$template->setVar('color', $color);
-$template->setVar('page', $page);
+//set content
+$view->setContent('page');
 
-$template->setContent('page');
-
-echo $template->render();
+echo $view->render();
 

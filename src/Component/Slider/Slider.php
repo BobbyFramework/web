@@ -4,6 +4,7 @@ namespace BobbyFramework\Web\Component\Slider;
 
 use BobbyFramework\Web\ComponentInterface;
 use BobbyFramework\Web\Component;
+use BobbyFramework\Web\ViewInterface;
 
 class Slider extends Component implements ComponentInterface
 {
@@ -13,10 +14,10 @@ class Slider extends Component implements ComponentInterface
         "templateName" => 'element-slider'
     ];
 
-    public function __construct(array $options = [])
+    public function __construct(ViewInterface $view, array $options = [])
     {
         $options = array_merge($this->_optionsDefault, $options);
-        parent::__construct($options);
+        parent::__construct($view, $options);
     }
 
     public function add(Slide $slide)
@@ -29,6 +30,6 @@ class Slider extends Component implements ComponentInterface
     {
         $data['slides'] = $this->_slide;
 
-        return $this->get($this->getTemplatePath() . $this->getTemplateName(), $data);
+        return $this->getAdapter()->get($this->getTemplatePath() . $this->getTemplateName(), $data);
     }
 }

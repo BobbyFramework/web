@@ -3,6 +3,7 @@ namespace BobbyFramework\Web\Component;
 
 use BobbyFramework\Web\ComponentInterface;
 use BobbyFramework\Web\Component;
+use BobbyFramework\Web\ViewInterface;
 
 /**
  * Class Breadcrumb
@@ -15,10 +16,10 @@ class Breadcrumb extends Component implements ComponentInterface
         "templateName" => 'element-breadcrumb'
     ];
 
-    public function __construct(array $options = [])
+    public function __construct(ViewInterface $view,array $options = [])
     {
         $options = array_merge($this->_optionsDefault, $options);
-        parent::__construct($options);
+        parent::__construct($view,$options);
     }
 
     /**
@@ -76,7 +77,7 @@ class Breadcrumb extends Component implements ComponentInterface
         }
         $data['breadcrumbs'] = $this->breadcrumbs;
 
-        return $this->get($this->getTemplatePath() . $this->getTemplateName(), $data);
+        return $this->getAdapter()->get($this->getTemplatePath() . $this->getTemplateName(), $data);
     }
 
     /**
