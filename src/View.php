@@ -4,7 +4,7 @@ namespace BobbyFramework\Web;
 
 class View implements ViewInterface
 {
-    const NO_VIEW= 1;
+    const NO_VIEW = 1;
     /**
      * @var array
      */
@@ -30,7 +30,7 @@ class View implements ViewInterface
      */
     Private $_vars = array();
 
-    /**-
+    /**
      * @var null contenue de la view
      */
     private $_content = null;
@@ -43,16 +43,14 @@ class View implements ViewInterface
         'view',
         'title',
     );
+    /** @var  null|string */
+    private $_path = null;
 
-
-    private $_path;
-
-
-    public function __construct()
-    {
-
-    }
-
+    /**
+     * @param $layout
+     * @return $this
+     * @throws \Exception
+     */
     public function layout($layout)
     {
         if (!$this->_isRun) {
@@ -63,12 +61,21 @@ class View implements ViewInterface
         return $this;
     }
 
+    /**
+     * @param $key
+     * @param $page
+     * @return $this
+     */
     public function setPartial($key, $page)
     {
         $this->_tabLayout[$key] = $page;
         return $this;
     }
 
+    /**
+     * @param $key
+     * @return bool
+     */
     public function partialExists($key)
     {
         $return = false;
@@ -78,6 +85,10 @@ class View implements ViewInterface
         return $return;
     }
 
+    /**
+     * @param $path
+     * @return $this
+     */
     public function setPath($path)
     {
         $this->_path = $path;
@@ -85,6 +96,11 @@ class View implements ViewInterface
         return $this;
     }
 
+    /**
+     * @param $var
+     * @param $value
+     * @return $this
+     */
     public function setVar($var, $value)
     {
         if (in_array($var, $this->_varsNameReserved)) {
@@ -98,11 +114,18 @@ class View implements ViewInterface
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getVars()
     {
         return $this->_vars;
     }
 
+    /**
+     * @param array $data
+     * @return string
+     */
     public function render($data = array())
     {
         $this->_isRun = true;
@@ -115,19 +138,28 @@ class View implements ViewInterface
         return $content;
     }
 
+    /**
+     * @return mixed
+     */
     public function getPath()
     {
         return $this->_path;
     }
 
-    public function get($file, $data = array(),$usingPath = true)
+    /**
+     * @param $file
+     * @param array $data
+     * @param bool $usingPath
+     * @return string
+     */
+    public function get($file, $data = array(), $usingPath = true)
     {
-        if(true === $usingPath){
+        if (true === $usingPath) {
             $file = $this->getPath() . $file . '.php';
         }
 
         if (!file_exists($file)) {
-            throw new \RuntimeException('la view demander nexiste pas ' . $file,self::NO_VIEW);
+            throw new \RuntimeException('la view demander nexiste pas ' . $file, self::NO_VIEW);
         }
 
         $view = $this;
@@ -142,16 +174,27 @@ class View implements ViewInterface
         return $content;
     }
 
+    /**
+     * @param $page
+     * @param array $data
+     */
     public function display($page, array $data = array())
     {
         echo $this->get($page, $data);
     }
 
+    /**
+     * @param array $data
+     */
     public function displayContent(array $data = array())
     {
         echo $this->getContent($data);
     }
 
+    /**
+     * @param array $data
+     * @return mixed|string
+     */
     public function getContent(array $data = array())
     {
         return $this->get($this->_content, $data);
@@ -171,12 +214,21 @@ class View implements ViewInterface
         return $this;
     }
 
+    /**
+     * @param $key
+     * @param array $data
+     */
     public function displayPartial($key, array $data = array())
     {
         echo $this->getPartial($key, $data);
     }
 
-    public function getPartial($page, $data = array())
+    /**
+     * @param $page
+     * @param array $data
+     * @return mixed|string
+     */
+    public function getPartial($page, array $data = array())
     {
         if (array_key_exists($page, $this->_tabLayout)) {
             $page = $this->_tabLayout[$page];
@@ -187,6 +239,9 @@ class View implements ViewInterface
         return $this->get($page, $data);
     }
 
+    /**
+     * @return static
+     */
     public static function create()
     {
         return new static();
