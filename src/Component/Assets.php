@@ -4,7 +4,6 @@ namespace BobbyFramework\Web\Component;
 
 use BobbyFramework\Web\Helpers\HTMLElements;
 
-
 class Assets
 {
     private $_arrayJS = array();

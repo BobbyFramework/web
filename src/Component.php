@@ -14,8 +14,9 @@ Abstract class Component
     protected $_adapter;
 
     /**
-     * Validator constructor.
-     * @param $options
+     * Component constructor.
+     * @param ViewInterface $view
+     * @param array $options
      */
     public function __construct(ViewInterface $view, array $options = [])
     {
@@ -73,23 +74,35 @@ Abstract class Component
         return $defaultValue;
     }
 
-    public function setTemplatePath($path)
+    /**
+     * @param $path
+     */
+    public function setPath($path)
     {
-        $this->setOption('templatePath', $path);
+        $this->setOption('path', $path);
     }
 
-    public function getTemplatePath()
+    /**
+     * @return null
+     */
+    public function getPath()
     {
-        return $this->getOption('templatePath');
+        return $this->getOption('path');
     }
 
-    public function setTemplateName($name)
+    /**
+     * @param $name
+     */
+    public function setName($name)
     {
-        $this->setOption('templateName', $name);
+        $this->setOption('name', $name);
     }
 
-    public function getTemplateName()
+    /**
+     * @return null
+     */
+    public function getName()
     {
-        return $this->getOption('templateName');
+        return $this->getOption('name');
     }
 }

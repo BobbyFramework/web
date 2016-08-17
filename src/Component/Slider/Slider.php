@@ -30,6 +30,6 @@ class Slider extends Component implements ComponentInterface
     {
         $data['slides'] = $this->_slide;
 
-        return $this->getAdapter()->get($this->getTemplatePath() . $this->getTemplateName(), $data);
+        return $this->getAdapter()->get($this->getPath() . $this->getName(), $data);
     }
 }

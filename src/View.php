@@ -2,6 +2,10 @@
 
 namespace BobbyFramework\Web;
 
+/**
+ * Class View
+ * @package BobbyFramework\Web
+ */
 class View implements ViewInterface
 {
     const NO_VIEW = 1;
@@ -43,6 +47,7 @@ class View implements ViewInterface
         'view',
         'title',
     );
+
     /** @var  null|string */
     private $_path = null;
 

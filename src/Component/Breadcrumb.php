@@ -16,10 +16,10 @@ class Breadcrumb extends Component implements ComponentInterface
         "templateName" => 'Elements/element-breadcrumb'
     ];
 
-    public function __construct(ViewInterface $view,array $options = [])
+    public function __construct(ViewInterface $view, array $options = [])
     {
         $options = array_merge($this->_optionsDefault, $options);
-        parent::__construct($view,$options);
+        parent::__construct($view, $options);
     }
 
     /**
@@ -77,7 +77,7 @@ class Breadcrumb extends Component implements ComponentInterface
         }
         $data['breadcrumbs'] = $this->breadcrumbs;
 
-        return $this->getAdapter()->get($this->getTemplatePath() . $this->getTemplateName(), $data);
+        return $this->getAdapter()->get($this->getPath() . $this->getName(), $data);
     }
 
     /**
