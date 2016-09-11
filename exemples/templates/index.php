@@ -5,16 +5,16 @@ define('APP_PATH', realpath('../..'));
 
 require APP_PATH . '/vendor/autoload.php';
 
-$view = new \BobbyFramework\Web\View();
+$view = new \BobbyFramework\Web\Template();
 $view->setPath(APP_PATH . '/exemples/templates/7723/html/');
 
-$page = new \BobbyFramework\Web\Page();
+$page = new \BobbyFramework\Web\Managers\Page();
 //ADD detail Page
 $page->setTitle('titre d ela page');
 $page->setMetaDescription('dghsjdshghdgd');
 
 //ADD assets page
-$assets = new \BobbyFramework\Web\Component\Assets();
+$assets = new \BobbyFramework\Web\Components\Assets();
 $assets->addCss([
     'href' => 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css',
     'media' => 'all',
@@ -34,7 +34,7 @@ $assets->addJs([
     'crossorigin' => "anonymous"
 ]);
 
-$breadcrumb = new \BobbyFramework\Web\Component\Breadcrumb($view);
+$breadcrumb = new \BobbyFramework\Web\Components\Breadcrumb($view);
 $breadcrumb->add('page');
 $breadcrumb->add('dsdsd');
 $breadcrumb->active('dsdsd');
@@ -43,14 +43,14 @@ $page->setBreadcrumb($breadcrumb);
 $page->setAssets($assets);
 
 //ADD ROW CONTENT
-$row = new \BobbyFramework\Web\Component\Row();
+$row = new \BobbyFramework\Web\Components\Row();
 $row->setTitle('Titre du paragraphe');
 
-$col = new \BobbyFramework\Web\Component\Col();
+$col = new \BobbyFramework\Web\Components\Col();
 $col->setContent("sdsd");
 $row->addCols($col);
 
-$col = new \BobbyFramework\Web\Component\Col();
+$col = new \BobbyFramework\Web\Components\Col();
 $col->setContent("sddsqsdqsdsd");
 $row->addCols($col);
 
@@ -58,14 +58,14 @@ $page->addRow($row);
 
 
 //ADD ROW CONTENT
-$row = new \BobbyFramework\Web\Component\Row();
+$row = new \BobbyFramework\Web\Components\Row();
 $row->setTitle('Titre du paragraphe');
 
-$col = new \BobbyFramework\Web\Component\Col();
+$col = new \BobbyFramework\Web\Components\Col();
 $col->setContent("sdsd");
 $row->addCols($col);
 
-$col = new \BobbyFramework\Web\Component\Col();
+$col = new \BobbyFramework\Web\Components\Col();
 $col->setContent("sddsqsdqsdsd");
 $row->addCols($col);
 
@@ -73,14 +73,14 @@ $page->addRow($row);
 
 
 //ADD ROW CONTENT
-$row = new \BobbyFramework\Web\Component\Row();
+$row = new \BobbyFramework\Web\Components\Row();
 $row->setTitle('Titre du paragraphe');
 
-$col = new \BobbyFramework\Web\Component\Col();
+$col = new \BobbyFramework\Web\Components\Col();
 $col->setContent("sdsd");
 $row->addCols($col);
 
-$col = new \BobbyFramework\Web\Component\Col();
+$col = new \BobbyFramework\Web\Components\Col();
 $col->setContent("sddsqsdqsdsd");
 $row->addCols($col);
 
@@ -88,30 +88,30 @@ $page->addRow($row);
 
 
 //ADD ROW CONTENT
-$row = new \BobbyFramework\Web\Component\Row();
+$row = new \BobbyFramework\Web\Components\Row();
 $row->setTitle('Titre du paragraphe');
 
-$col = new \BobbyFramework\Web\Component\Col();
+$col = new \BobbyFramework\Web\Components\Col();
 $col->setContent("sdsd");
 $row->addCols($col);
 
-$col = new \BobbyFramework\Web\Component\Col();
+$col = new \BobbyFramework\Web\Components\Col();
 $col->setContent("sddsqsdqsdsd");
 $row->addCols($col);
 
 $page->addRow($row);
 
-$row = new \BobbyFramework\Web\Component\Row();
+$row = new \BobbyFramework\Web\Components\Row();
 
-$col = new \BobbyFramework\Web\Component\Col();
+$col = new \BobbyFramework\Web\Components\Col();
 $col->setContent('dsdsdsd');
 $row->addCols($col);
 
-$col = new \BobbyFramework\Web\Component\Col();
+$col = new \BobbyFramework\Web\Components\Col();
 
-$slider = new \BobbyFramework\Web\Component\Slider\Slider($view);
+$slider = new \BobbyFramework\Web\Components\Slider\Slider($view);
 
-$slide = new \BobbyFramework\Web\Component\Slider\Slide();
+$slide = new \BobbyFramework\Web\Components\Slider\Slide();
 $slide->setHref('jkdsdd');
 $slide->setImage('dsdsds');
 $slide->setImageThumbnail('sds');
@@ -130,7 +130,7 @@ $slider->add($slide);
 $col->setContent($slider->render());
 $row->addCols($col);
 
-$col = new \BobbyFramework\Web\Component\Col();
+$col = new \BobbyFramework\Web\Components\Col();
 $col->setContent("sdsd sdsqdsqqd");
 $row->addCols($col);
 

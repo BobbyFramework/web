@@ -1,6 +1,6 @@
 <?php
 
-namespace BobbyFramework\Web\Component;
+namespace BobbyFramework\Web\Components;
 
 class Col
 {

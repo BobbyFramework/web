@@ -1,5 +1,5 @@
 <?php
-namespace BobbyFramework\Web\Component;
+namespace BobbyFramework\Web\Components;
 
 use BobbyFramework\Web\ComponentInterface;
 use BobbyFramework\Web\Component;
@@ -11,24 +11,23 @@ use BobbyFramework\Web\ViewInterface;
  */
 class Breadcrumb extends Component implements ComponentInterface
 {
-
-    protected $_optionsDefault = [
-        "templateName" => 'Elements/element-breadcrumb'
-    ];
-
-    public function __construct(ViewInterface $view, array $options = [])
-    {
-        $options = array_merge($this->_optionsDefault, $options);
-        parent::__construct($view, $options);
-    }
-
     /**
-     * array of breadcrumbs
+     * array $breadcrumbs
      */
     public $breadcrumbs = array();
 
     /**
-     * @param $title
+     * Breadcrumb constructor.
+     * @param ViewInterface $view
+     * @param array $options
+     */
+    public function __construct(ViewInterface $view, array $options = [])
+    {
+        parent::__construct($view, $options);
+    }
+
+    /**
+     * @param string $title
      * @param bool $url
      * @param array $active
      */
@@ -67,17 +66,20 @@ class Breadcrumb extends Component implements ComponentInterface
     }
 
     /**
+     * @param $file
      * @param array $data
-     * @return string|void
+     * @param bool $usingTemplateBase
+     * @param bool $usingPath
+     * @return mixed|string|void
      */
-    public function render(array $data = [])
+    public function render($file, array $data = [], $usingTemplateBase = false, $usingPath = true)
     {
         if (empty($this->breadcrumbs)) {
             return;
         }
         $data['breadcrumbs'] = $this->breadcrumbs;
 
-        return $this->getAdapter()->get($this->getPath() . $this->getName(), $data);
+        return parent::render($file, $data, $usingTemplateBase, $usingPath);
     }
 
     /**

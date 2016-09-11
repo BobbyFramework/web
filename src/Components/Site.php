@@ -1,6 +1,6 @@
 <?php
 
-namespace BobbyFramework\Web;
+namespace BobbyFramework\Web\Components;
 
 /**
  * Class Site

@@ -74,35 +74,12 @@ Abstract class Component
         return $defaultValue;
     }
 
-    /**
-     * @param $path
-     */
-    public function setPath($path)
+    public function render($file, array $data = [], $usingTemplateBase = false, $usingPath = true)
     {
-        $this->setOption('path', $path);
-    }
+        if ($this->_adapter instanceof Template) {
+            return $this->_adapter->getView($file, $data, $usingTemplateBase, $usingPath);
+        }
 
-    /**
-     * @return null
-     */
-    public function getPath()
-    {
-        return $this->getOption('path');
-    }
-
-    /**
-     * @param $name
-     */
-    public function setName($name)
-    {
-        $this->setOption('name', $name);
-    }
-
-    /**
-     * @return null
-     */
-    public function getName()
-    {
-        return $this->getOption('name');
+        return $this->getAdapter()->get($file, $data);
     }
 }

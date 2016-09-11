@@ -13,7 +13,7 @@ interface ViewInterface
      * @param array $data
      * @return mixed
      */
-    public function get($file, $data = array());
+    public function get($file, array $data = []);
 
     /**
      * @return mixed
@@ -26,15 +26,4 @@ interface ViewInterface
      * @return mixed
      */
     public function display($page, array $data = array());
-
-    /**
-     * @return mixed
-     */
-    public function getPath();
-
-    /**
-     * @param $path
-     * @return mixed
-     */
-    public function setPath($path);
 }

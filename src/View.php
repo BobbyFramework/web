@@ -2,253 +2,288 @@
 
 namespace BobbyFramework\Web;
 
+use ArrayAccess;
+
 /**
  * Class View
  * @package BobbyFramework\Web
  */
-class View implements ViewInterface
+class View implements ArrayAccess, ViewInterface
 {
+    /**
+     * NO_VIEW
+     */
     const NO_VIEW = 1;
-    /**
-     * @var array
-     */
-    private $_tabLayout = array();
 
     /**
-     * @var bool status run generate layout
+     * @var array data vars $vars
      */
-    private $_isRun = false;
+    protected $vars = [];
 
     /**
-     * @var bool status layout is defined
+     * @var null|string $extension
      */
-    private $_isLayout = false;
+    protected $extension = null;
+    /**
+     * @var null|string $path
+     */
+    protected $path;
 
     /**
-     * @var null content le layout
+     * View constructor.
+     * @param string $extension
      */
-    private $_layout = null;
-
-    /**
-     * @var array data vars using template
-     */
-    Private $_vars = array();
-
-    /**
-     * @var null contenue de la view
-     */
-    private $_content = null;
-
-    /**
-     * @var array  name des varaible reserve
-     */
-    private $_varsNameReserved = array(
-        'theme',
-        'view',
-        'title',
-    );
-
-    /** @var  null|string */
-    private $_path = null;
-
-    /**
-     * @param $layout
-     * @return $this
-     * @throws \Exception
-     */
-    public function layout($layout)
+    public function __construct($extension = '.php')
     {
-        if (!$this->_isRun) {
-            $this->_isLayout = true;
-            $this->_layout = $layout;
-        } else throw new \Exception('Le layout ne peut pas etre redifinie dans le layout ');
+        $this->setExtension($extension);
+    }
+
+    /**
+     * @param string $extension
+     * @return View $this
+     */
+    public function setExtension($extension)
+    {
+        $this->extension = $extension;
 
         return $this;
     }
 
     /**
-     * @param $key
-     * @param $page
-     * @return $this
+     * @return string
      */
-    public function setPartial($key, $page)
+    public function getExtension()
     {
-        $this->_tabLayout[$key] = $page;
+        return $this->extension;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string $path
+     * @return View $this
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
         return $this;
+    }
+
+    /**
+     * @param string $var
+     * @param string $value
+     * @return View $this
+     */
+    public function setVar($var, $value)
+    {
+        if (!is_string($var) || is_numeric($var) || empty($var)) {
+            throw new \InvalidArgumentException('The variable name must be a non-null character string');
+        }
+        $this->vars[$var] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param string $vars
+     * @param null|string $value
+     * @return View $this
+     */
+    public function setVars($vars, $value = null)
+    {
+        if (is_array($vars)) {
+            $this->vars = array_merge($this->vars, $vars);
+        } else {
+            $this->vars[$vars] = $value;
+        }
+        return $this;
+    }
+
+    /**
+     * @param string $file
+     * @throws NoViewException
+     */
+    public function exists($file)
+    {
+        if (!file_exists($file)) {
+            throw new NoViewException($file, 'Not found view' . $file, self::NO_VIEW);
+        }
+    }
+
+    /**
+     * @param string $file
+     * @param array $data
+     * @return string
+     * @throws NoViewException
+     * @throws \Exception
+     */
+    public function get($file, array $data = [])
+    {
+        $file = $this->getPath() . $file . $this->getExtension();
+
+        $this->exists($file);
+
+        return $this->render($file, $data);
+    }
+
+    /**
+     * @param string $file
+     * @param array $data
+     * @return string
+     * @throws \Exception
+     */
+    public function render($file, array $data = [])
+    {
+        $this->setVars($data);
+        unset($data);
+        ob_start();
+
+        try {
+            extract($this->vars);
+            include $file;
+        } catch (\Exception $e) {
+            ob_clean();
+            throw $e;
+        }
+
+        $content = ob_get_contents();
+        ob_end_clean();
+        // Return the contents
+        return $content;
+    }
+
+    /**
+     * @return View
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * @param string $file
+     * @param array $data
+     * @return string
+     * @throws NoViewException
+     */
+    public function __invoke($file, array $data = [])
+    {
+        return $this->get($file, $data);
     }
 
     /**
      * @param $key
      * @return bool
      */
-    public function partialExists($key)
+    public function __isset($key)
     {
-        $return = false;
-        if (isset($this->_tabLayout[$key])) {
-            $return = true;
-        }
-        return $return;
+        return isset($this->vars[$key]);
     }
 
     /**
-     * @param $path
-     * @return $this
+     * @param $key
      */
-    public function setPath($path)
+    public function __unset($key)
     {
-        $this->_path = $path;
+        unset($this->vars[$key]);
+    }
 
-        return $this;
+    /**
+     * @param $key
+     * @return mixed
+     */
+    public function __get($key)
+    {
+        return $this->vars[$key];
     }
 
     /**
      * @param $var
      * @param $value
-     * @return $this
      */
-    public function setVar($var, $value)
+    public function __set($var, $value)
     {
-        if (in_array($var, $this->_varsNameReserved)) {
-            throw new \InvalidArgumentException('Var name is using syteme ');
-        }
+        $this->vars[$var] = $value;
+    }
 
-        if (!is_string($var) || is_numeric($var) || empty($var)) {
-            throw new \InvalidArgumentException('Le nom de la variable doit �tre une chaine de caract�re non nulle');
-        }
-        $this->_vars[$var] = $value;
-        return $this;
+
+    /**
+     * Whether a offset exists
+     * @link http://php.net/manual/en/arrayaccess.offsetexists.php
+     * @param mixed $offset <p>
+     * An offset to check for.
+     * </p>
+     * @return boolean true on success or false on failure.
+     * </p>
+     * <p>
+     * The return value will be casted to boolean if non-boolean was returned.
+     * @since 5.0.0
+     */
+    public function offsetExists($offset)
+    {
+        return array_key_exists($offset, $this->vars);
     }
 
     /**
-     * @return array
+     * Offset to retrieve
+     * @link http://php.net/manual/en/arrayaccess.offsetget.php
+     * @param mixed $offset <p>
+     * The offset to retrieve.
+     * </p>
+     * @return mixed Can return all value types.
+     * @since 5.0.0
      */
-    public function getVars()
+    public function offsetGet($offset)
     {
-        return $this->_vars;
+        return $this->vars[$offset];
     }
 
     /**
+     * Offset to set
+     * @link http://php.net/manual/en/arrayaccess.offsetset.php
+     * @param mixed $offset <p>
+     * The offset to assign the value to.
+     * </p>
+     * @param mixed $value <p>
+     * The value to set.
+     * </p>
+     * @return void
+     * @since 5.0.0
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->setVar($offset, $value);
+    }
+
+    /**
+     * Offset to unset
+     * @link http://php.net/manual/en/arrayaccess.offsetunset.php
+     * @param mixed $offset <p>
+     * The offset to unset.
+     * </p>
+     * @return void
+     * @since 5.0.0
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->vars[$offset]);
+    }
+
+    /**
+     * @param string $file
      * @param array $data
-     * @return string
-     */
-    public function render($data = array())
-    {
-        $this->_isRun = true;
-        $content = '';
-        $data = array_merge($data, $this->_vars);
-        if ($this->_isLayout) {
-            $content = $this->get($this->_layout, $data);
-        }
-
-        return $content;
-    }
-
-    /**
      * @return mixed
+     * @throws NoViewException
      */
-    public function getPath()
+    public function display($file, array $data = [])
     {
-        return $this->_path;
-    }
-
-    /**
-     * @param $file
-     * @param array $data
-     * @param bool $usingPath
-     * @return string
-     */
-    public function get($file, $data = array(), $usingPath = true)
-    {
-        if (true === $usingPath) {
-            $file = $this->getPath() . $file . '.php';
-        }
-
-        if (!file_exists($file)) {
-            throw new \RuntimeException('la view demander nexiste pas ' . $file, self::NO_VIEW);
-        }
-
-        $view = $this;
-
-        $data = array_merge($data, $this->_vars);
-        extract($data);
-
-        ob_start();
-        require $file;
-        $content = ob_get_contents();
-        ob_end_clean();
-        return $content;
-    }
-
-    /**
-     * @param $page
-     * @param array $data
-     */
-    public function display($page, array $data = array())
-    {
-        echo $this->get($page, $data);
-    }
-
-    /**
-     * @param array $data
-     */
-    public function displayContent(array $data = array())
-    {
-        echo $this->getContent($data);
-    }
-
-    /**
-     * @param array $data
-     * @return mixed|string
-     */
-    public function getContent(array $data = array())
-    {
-        return $this->get($this->_content, $data);
-    }
-
-    /**
-     * initilize choise view content page
-     *
-     * @param $page
-     *
-     * @return $this
-     */
-    public function setContent($page)
-    {
-        $this->_content = $page;
-
-        return $this;
-    }
-
-    /**
-     * @param $key
-     * @param array $data
-     */
-    public function displayPartial($key, array $data = array())
-    {
-        echo $this->getPartial($key, $data);
-    }
-
-    /**
-     * @param $page
-     * @param array $data
-     * @return mixed|string
-     */
-    public function getPartial($page, array $data = array())
-    {
-        if (array_key_exists($page, $this->_tabLayout)) {
-            $page = $this->_tabLayout[$page];
-        } else {
-            die('eroor');
-        }
-        $data = array_merge($data, $this->_vars);
-        return $this->get($page, $data);
-    }
-
-    /**
-     * @return static
-     */
-    public static function create()
-    {
-        return new static();
+        echo $this->get($file, $data);
     }
 }
