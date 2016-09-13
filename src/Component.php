@@ -10,6 +10,7 @@ Abstract class Component
 {
     /** @var array $_options */
     protected $_options = array();
+
     /** @var ViewInterface $_adapter */
     protected $_adapter;
 
@@ -74,6 +75,13 @@ Abstract class Component
         return $defaultValue;
     }
 
+    /**
+     * @param $file
+     * @param array $data
+     * @param bool $usingTemplateBase
+     * @param bool $usingPath
+     * @return mixed|string
+     */
     public function render($file, array $data = [], $usingTemplateBase = false, $usingPath = true)
     {
         if ($this->_adapter instanceof Template) {
