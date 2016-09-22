@@ -4,7 +4,6 @@ namespace BobbyFramework\Web\Components\Navs;
 
 use BobbyFramework\Web\Component;
 use BobbyFramework\Web\ComponentInterface;
-use BobbyFramework\Web\Template;
 use BobbyFramework\Web\View;
 use BobbyFramework\Web\ViewInterface;
 
@@ -25,6 +24,11 @@ class NavCollections extends Component implements ComponentInterface
     protected $name;
 
     /**
+     * @var string $title
+     */
+    protected $title = '';
+
+    /**
      * NavCollections constructor.
      * @param ViewInterface $name
      * @param ViewInterface|null $view
@@ -35,6 +39,24 @@ class NavCollections extends Component implements ComponentInterface
         $view = $view ?: new View();
         parent::__construct($view, $options);
         $this->setName($name);
+    }
+
+    /**
+     * @param string $title
+     * @return $this
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
