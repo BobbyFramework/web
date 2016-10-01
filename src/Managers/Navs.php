@@ -45,4 +45,12 @@ class Navs
     {
         return $this->navs[$key];
     }
+
+    /**
+     * @return array
+     */
+    public function getAll()
+    {
+        return $this->navs;
+    }
 }
