@@ -16,6 +16,10 @@ class Breadcrumb extends Component implements ComponentInterface
      */
     public $breadcrumbs = array();
 
+    private $countChild = 0;
+
+    const FIRST_CHILD = 0;
+
     /**
      * Breadcrumb constructor.
      * @param ViewInterface $view
@@ -29,16 +33,18 @@ class Breadcrumb extends Component implements ComponentInterface
     /**
      * @param string $title
      * @param bool $url
-     * @param array $active
+     * @param array $attributes
      */
-    public function add($title, $url = false, array $active = array())
+    public function add($title, $url = false, array $attributes = array())
     {
-        $this->breadcrumbs[] = array(
+        $this->breadcrumbs[$this->countChild] = array(
             'content' => $title,
             'url' => $url,
-            'attribute' => $active,
-            'content_element' => false
+            'attribute' => $attributes,
+            'content_element' => false,
         );
+
+        $this->countChild++;
     }
 
     /**
@@ -46,12 +52,14 @@ class Breadcrumb extends Component implements ComponentInterface
      */
     public function addSpecific($html)
     {
-        $this->breadcrumbs[] = array(
+        $this->breadcrumbs[$this->countChild] = array(
             'content' => false,
             'url' => false,
             'attribute' => false,
             'content_element' => $html
         );
+
+        $this->countChild++;
     }
 
     /**
