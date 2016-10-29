@@ -23,7 +23,7 @@ class Page
     protected $breadcrumb = null;
 
     /**
-     * @var
+     * @var Navs $navs
      */
     protected $navs;
 
@@ -38,9 +38,19 @@ class Page
     protected $assets;
 
     /**
-     * @var $assets
+     * @var string $metaDescription
      */
     protected $metaDescription;
+
+    /**
+     * @var string $metaKeywords
+     */
+    protected $metaKeywords;
+
+    /**
+     * @var string $metaAuthor
+     */
+    protected $metaAuthor;
 
     /**
      * @param Row $row
@@ -163,5 +173,43 @@ class Page
     public function getMetaDescription()
     {
         return $this->metaDescription;
+    }
+
+    /**
+     * @param string $metaKeywords
+     * @return $this
+     */
+    public function setMetaKeywords($metaKeywords)
+    {
+        $this->metaKeywords = $metaKeywords;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMetaKeywords()
+    {
+        return $this->metaKeywords;
+    }
+
+    /**
+     * @param $metaAuthor
+     * @return $this
+     */
+    public function setMetaAutor($metaAuthor)
+    {
+        $this->metaAuthor = $metaAuthor;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMetaAuthor()
+    {
+        return $this->metaAuthor;
     }
 }
