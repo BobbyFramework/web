@@ -120,14 +120,14 @@ class View implements ArrayAccess, ViewInterface
     /**
      * @param string $file
      * @param array $data
+     * @param bool $ext
      * @return string
      * @throws NoViewException
      * @throws \Exception
      */
-    public function get($file, array $data = [])
+    public function get($file, array $data = [], $ext = true)
     {
-        $file = $this->getPath() . $file . $this->getExtension();
-
+        $file = $this->getPath() . $file . ((true === $ext) ? $this->getExtension() : '');
         $this->exists($file);
 
         return $this->render($file, $data);

@@ -53,6 +53,11 @@ class Page
     protected $metaAuthor;
 
     /**
+     * @var string $content content page
+     */
+    protected $content;
+
+    /**
      * @param Row $row
      */
     public function addRow(Row $row)
@@ -211,5 +216,29 @@ class Page
     public function getMetaAuthor()
     {
         return $this->metaAuthor;
+    }
+
+    /**
+     * @param string $content
+     */
+    public function addContent($content)
+    {
+        $this->content = $content;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasContent()
+    {
+        return isset($this->content);
+    }
+
+    /**
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
     }
 }

@@ -6,12 +6,16 @@ namespace BobbyFramework\Web;
  * Class Component
  * @package BobbyFramework\Web
  */
-Abstract class Component
+abstract class Component
 {
-    /** @var array $_options */
-    protected $_options = array();
+    /**
+     * @var array $_options
+     */
+    protected $_options = [];
 
-    /** @var ViewInterface $_adapter */
+    /**
+     * @var ViewInterface $_adapter
+     */
     protected $_adapter;
 
     /**

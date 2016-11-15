@@ -109,7 +109,7 @@ $row->addCols($col);
 
 $col = new \BobbyFramework\Web\Components\Col();
 
-$slider = new \BobbyFramework\Web\Components\Slider\Slider($view);
+$slider = new \BobbyFramework\Web\Components\Slider\Slider('slider-hp', $view);
 
 $slide = new \BobbyFramework\Web\Components\Slider\Slide();
 $slide->setHref('jkdsdd');

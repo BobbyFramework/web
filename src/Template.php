@@ -229,11 +229,12 @@ class Template implements ViewInterface
     /**
      * @param $file
      * @param array $data
+     * @param bool $ext
      * @return string
      */
-    public function get($file, array $data = [])
+    public function get($file, array $data = [], $ext = true)
     {
-        return View::create()->get($file, $data);
+        return View::create()->get($file, $data, $ext);
     }
 
     /**

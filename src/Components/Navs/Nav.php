@@ -1,37 +1,44 @@
 <?php
 
 namespace BobbyFramework\Web\Components\Navs;
+use BobbyFramework\Web\EntityInterface;
 
 /**
  * Class Nav
  * @package BobbyFramework\Web\Components\Navs
  */
-class Nav
+class Nav implements EntityInterface
 {
     /**
      * @var string
      */
     protected $title;
+
     /**
      * @var string
      */
     protected $href;
+
     /**
      * @var array
      */
     protected $attributes;
+
     /**
      * @var string
      */
     protected $alt;
+
     /**
      * @var boolean
      */
     protected $status;
+
     /**
      * @var array
      */
-    protected $children;
+    protected $children = false;
+
     /**
      * @var string
      */
@@ -46,7 +53,9 @@ class Nav
     {
         $this->setContent($content);
         $this->setHref($href);
-        $this->setStatus(false);
+        $this->setStatus(true);
+
+        $this->active = false;
     }
 
     /**
@@ -66,6 +75,24 @@ class Nav
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * @return $this
+     */
+    public function active()
+    {
+        $this->active = true;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive()
+    {
+        return $this->active;
     }
 
     /**
@@ -164,10 +191,10 @@ class Nav
     }
 
     /**
-     * @param Nav $nav
+     * @param array $nav
      * @return $this
      */
-    public function setChildren(Nav $nav)
+    public function setChildren(array $nav)
     {
         $this->children = $nav;
 
