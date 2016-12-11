@@ -2,7 +2,9 @@
 
 namespace BobbyFramework\Web\Components\Slider;
 
-class Slide
+use BobbyFramework\Web\EntityInterface;
+
+class Slide implements EntityInterface
 {
     /**
      * @var
@@ -26,7 +28,11 @@ class Slide
         $this->href = $href;
         return $this;
     }
-
+    public function setUid($uid)
+    {
+        $this->uid = $uid;
+        return $this;
+    }
     /**
      * @param string $img
      * @return $this
@@ -46,6 +52,13 @@ class Slide
     {
         $this->thumbnails = $img;
         return $this;
+    }
+    public function getUid(){
+        return  $this->uid;
+    }
+
+    public function getImage(){
+       return  $this->img;
     }
 
 }

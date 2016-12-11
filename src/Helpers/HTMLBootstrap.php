@@ -8,9 +8,14 @@ namespace BobbyFramework\Web\Helpers;
  */
 class HTMLBootstrap extends HTMLElements
 {
+    /**
+     * @param $caption
+     * @param $options
+     * @return mixed
+     */
     private static function _dropdown($caption, $options)
     {
-        $options['id']      = isset($options['id']) ? $options['id'] : 'label-dropdown-' . (string)(mt_rand(1, pow(10, 10)));
+        $options['id'] = isset($options['id']) ? $options['id'] : 'label-dropdown-' . (string)(mt_rand(1, pow(10, 10)));
         $options['caption'] = $caption . ' ';
         $options['size'] = isset($options['size']) ? $options['size'] : null;
 
@@ -41,10 +46,10 @@ class HTMLBootstrap extends HTMLElements
                 $size = null;
         }
 
-        $context                 = isset($options['context']) ? $options['context'] : 'default';
+        $context = isset($options['context']) ? $options['context'] : 'default';
         $options['button_class'] = join(' ', array_filter([$button_class, 'btn', "btn-$context", $size], 'strlen'));
 
-        $align                 = isset($options['align']) && $options['align'] === 'right' ? 'dropdown-menu-right' : null;
+        $align = isset($options['align']) && $options['align'] === 'right' ? 'dropdown-menu-right' : null;
         $options['list_class'] = join(' ', array_filter(['dropdown-menu', $align], 'strlen'));
 
         unset($options['context']);
@@ -52,10 +57,16 @@ class HTMLBootstrap extends HTMLElements
         return $options;
     }
 
+    /**
+     * @param $caption
+     * @param array $options
+     * @param null $navs
+     * @return string
+     */
     public static function dropdown($caption, $options = [], $navs = null)
     {
         if (is_callable($options)) {
-            $navs    = $options;
+            $navs = $options;
             $options = [];
         }
 
@@ -66,14 +77,14 @@ class HTMLBootstrap extends HTMLElements
         // Render
         $html = '<div ' . self::arrayToAttributes(['class' => $options['div_class']]) . '>';
         if (isset($options['split']) && $options['split']) {
-            $html .= self::a(['class' => $options['button_class'], 'href' =>$options['href'] ], $options['caption']);
+            $html .= self::a(['class' => $options['button_class'], 'href' => $options['href']], $options['caption']);
         }
 
 
         $html .= '<button ' . self::arrayToAttributes([
-                'class'       => 'dropdown-toggle ' . $options['button_class'],
-                'type'        => 'button',
-                'id'          => $options['id'],
+                'class' => 'dropdown-toggle ' . $options['button_class'],
+                'type' => 'button',
+                'id' => $options['id'],
                 'data-toggle' => 'dropdown'
             ]) . '>';
 
@@ -87,8 +98,8 @@ class HTMLBootstrap extends HTMLElements
         $html .= '</button>';
 
         $html .= '<ul ' . self::arrayToAttributes([
-                'class'           => $options['list_class'],
-                'role'            => 'menu',
+                'class' => $options['list_class'],
+                'role' => 'menu',
                 'aria-labelledby' => $options['id']
             ]) . '>';
 

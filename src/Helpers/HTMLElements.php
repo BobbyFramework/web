@@ -86,33 +86,4 @@ class HTMLElements
         }
         return "<span " . self::arrayToAttributes($attributes) . ">" . $content . "</span>";
     }
-
-    /**
-     * @param string $attributes
-     * @param string $content
-     * @return string
-     */
-    public static function button($attributes = '', $content = '')
-    {
-
-        $defaults = array('name' => ((!is_array($attributes)) ? $attributes : ''), 'href' => '#');
-
-        if (is_array($attributes) AND isset($attributes['content'])) {
-            $content = $attributes['content'];
-            unset($attributes['content']); // content is not an attribute
-        }
-
-        return "<button " . arrayToAttributes(array_merge($defaults, $attributes)) . ">" . $content . "</button>";
-    }
-
-    /**
-     * @param string $attributes
-     * @return string
-     */
-    public static function input($attributes = '')
-    {
-        $defaults = array('type' => ((!is_array($attributes)) ? $attributes : 'text'), 'name' => '');
-
-        return "<input " . self::arrayToAttributes(array_merge($defaults, $attributes)) . "/>";
-    }
 }

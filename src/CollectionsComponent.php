@@ -3,21 +3,41 @@ namespace BobbyFramework\Web;
 
 abstract class CollectionsComponent extends Component
 {
+    /**
+     * @var array
+     */
+
     protected $collection = [];
+    /**
+     * @var
+     */
     protected $name;
 
+    /**
+     * CollectionsComponent constructor.
+     * @param ViewInterface $name
+     * @param ViewInterface|null $view
+     * @param array $options
+     */
     public function __construct($name, ViewInterface $view = null, array $options = [])
     {
-        $view = $view ?: new View();
-        parent::__construct($view, $options);
         $this->setName($name);
+        $view = $view ?: new View();
+
+        parent::__construct($view, $options);
     }
 
+    /**
+     * @return array
+     */
     public function getAll()
     {
         return $this->collection;
     }
 
+    /**
+     * @param EntityInterface $entity
+     */
     public function add(EntityInterface $entity)
     {
         $this->collection[] = $entity;
