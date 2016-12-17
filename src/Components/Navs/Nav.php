@@ -45,6 +45,11 @@ class Nav implements EntityInterface
     protected $content;
 
     /**
+     * @var string
+     */
+    protected $name = '';
+
+    /**
      * Nav constructor.
      * @param null|string $content
      * @param null|string $href
@@ -58,6 +63,14 @@ class Nav implements EntityInterface
         $this->active = false;
     }
 
+
+    public function setName($id) {
+        $this->name = $id;
+    }
+
+    public function getName(){
+        return $this->name;
+    }
     /**
      * @param string $title
      * @return $this
