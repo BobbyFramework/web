@@ -85,6 +85,7 @@ class Assets
         $this->addCss($file, true);
     }
 
+
     public function outputCss(array $file = null, $cdn = false)
     {
         if ($file != null) {
@@ -93,6 +94,11 @@ class Assets
         return $this->_output($this->_arrayCSS, 'css');
     }
 
+    /**
+     * @param $arrayType
+     * @param string $type
+     * @return bool
+     */
     private function _output($arrayType, $type = 'css')
     {
         if (!is_array($arrayType))
@@ -110,8 +116,27 @@ class Assets
         }
     }
 
+    /**
+     * @return bool
+     */
     public function outputJs()
     {
         return $this->_output($this->_arrayJS, 'js');
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasJs()
+    {
+        return !empty($this->_arrayJS);
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasCss()
+    {
+        return !empty($this->_arrayCSS);
     }
 }

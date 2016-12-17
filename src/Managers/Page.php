@@ -58,6 +58,33 @@ class Page
     protected $content;
 
     /**
+     * @var string reference unique page
+     */
+    protected $reference;
+
+
+    public function __construct($reference = null)
+    {
+        $this->reference = $reference ?: 'undefined';
+    }
+
+    /**
+     * @param string $reference
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReference()
+    {
+        return $this->reference;
+    }
+
+    /**
      * @param Row $row
      */
     public function addRow(Row $row)
