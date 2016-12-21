@@ -15,7 +15,7 @@ abstract class CollectionsComponent extends Component
 
     /**
      * CollectionsComponent constructor.
-     * @param ViewInterface $name
+     * @param string $name
      * @param ViewInterface|null $view
      * @param array $options
      */
