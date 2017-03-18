@@ -207,7 +207,7 @@ class Nav implements EntityInterface
      * @param array $nav
      * @return $this
      */
-    public function setChildren(array $nav)
+    public function setChildren($nav)
     {
         $this->children = $nav;
 
