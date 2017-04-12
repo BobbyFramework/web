@@ -143,7 +143,7 @@ class Template implements ViewInterface
     public function setVar($var, $value, $addReserved = false)
     {
         if (in_array($var, $this->varsNameReserved)) {
-            throw new \InvalidArgumentException('Var name is using syteme ');
+            throw new \InvalidArgumentException('Var name is using syteme : ' . $var);
         }
 
         if (!is_string($var) || is_numeric($var) || empty($var)) {
@@ -182,6 +182,15 @@ class Template implements ViewInterface
     public function getVars()
     {
         return $this->vars;
+    }
+
+    /**
+     * @param string $key
+     * @return mixed
+     */
+    public function getVar($key)
+    {
+        return $this->vars[$key];
     }
 
     /**
