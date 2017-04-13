@@ -22,7 +22,7 @@ class Nav implements EntityInterface
     /**
      * @var array
      */
-    protected $attributes;
+    protected $attributes = [];
 
     /**
      * @var string
