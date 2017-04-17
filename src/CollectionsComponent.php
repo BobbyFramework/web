@@ -79,7 +79,7 @@ abstract class CollectionsComponent extends Component
      */
     public function render($file, array $data = [], $usingTemplateBase = false, $usingPath = true)
     {
-        $data['elements'] = $this->collection;
+        $data['navsCollection'] = $this;
 
         return parent::render($file, $data, $usingTemplateBase, $usingPath);
     }
