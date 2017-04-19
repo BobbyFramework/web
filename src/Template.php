@@ -158,21 +158,27 @@ class Template implements ViewInterface
     }
 
     /**
-     * @param $vars
+     * @param array $vars
      * @param bool $merge
      * @return Template $this
      * @internal param bool $clear
      */
-    public function setVars($vars, $merge = false)
+    public function setVars(array $vars, $merge = false)
     {
         if (true === $merge) {
-            if (is_array($vars)) {
-                $this->vars = array_merge($this->vars, $vars);
-            }
+            $this->vars = array_merge($this->vars, $vars);
         } else {
             $this->vars = $vars;
         }
         return $this;
+    }
+
+    /**
+     * @param array $vars
+     */
+    public function addVars(array $vars)
+    {
+        $this->setVars($vars, true);
     }
 
 
