@@ -77,6 +77,11 @@ class Template implements ViewInterface
     protected $path = null;
 
     /**
+     * @var bool
+     */
+    protected $contentIsData = false;
+
+    /**
      * Template constructor.
      * @param null $path
      * @param null $pathBase
@@ -326,6 +331,15 @@ class Template implements ViewInterface
     }
 
     /**
+     * @param string $content
+     */
+    public function addContent($content)
+    {
+        $this->content = $content;
+        $this->contentIsData = true;
+    }
+
+    /**
      * @param string $file
      * @param bool $usingTemplateBase
      * @param bool $usingPath
@@ -345,6 +359,9 @@ class Template implements ViewInterface
      */
     public function getContent(array $data = array())
     {
+        if ($this->contentIsData) {
+            return $this->content;
+        }
         return $this->getView($this->content, $data, $this->contentTemplateBase, $this->contentPath);
     }
 
