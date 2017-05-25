@@ -4,11 +4,25 @@ namespace BobbyFramework\Web\Components;
 
 use BobbyFramework\Web\Helpers\HTMLElements;
 
+/**
+ * Class Assets
+ * @package BobbyFramework\Web\Components
+ */
 class Assets
 {
+    /**
+     * @var array
+     */
     private $_arrayJS = array();
+
+    /**
+     * @var array
+     */
     private $_arrayCSS = array();
 
+    /**
+     * @var string
+     */
     private $_cdn = '';
 
     /**
@@ -27,21 +41,34 @@ class Assets
         return $this->_cdn;
     }
 
+    /**
+     * @param $file
+     */
     public function displayCdn($file)
     {
         echo $this->_cdn . $file;
     }
 
+    /**
+     * @param array $listFiles
+     */
     public function addCdn(array $listFiles)
     {
         $this->_add($listFiles, $this->_cdn);
     }
 
+    /**
+     * @param array $listFiles
+     */
     public function add(array $listFiles)
     {
         $this->_add($listFiles);
     }
 
+    /**
+     * @param array $listFiles
+     * @param bool $cdn
+     */
     public function _add(array $listFiles, $cdn = false)
     {
         $itemAssets = array('js', 'css');
@@ -49,8 +76,14 @@ class Assets
         foreach ($itemAssets as $item) {
             if (array_key_exists($item, $listFiles)) {
                 if ($cdn === true) {
+
                     array_walk($listFiles[$item], function (&$value, $key) {
-                        $value = $this->_cdn . $value;
+                        if(isset( $value['src'])) {
+                            $value['src'] = $this->_cdn . $value['src'];
+                        }
+                        if(isset( $value['href'])) {
+                            $value['href'] = $this->_cdn . $value['href'];
+                        }
                     });
                 }
 
@@ -59,33 +92,57 @@ class Assets
         }
     }
 
+    /**
+     * @param $file
+     * @param $type
+     * @return array
+     */
     private function _transformFileArrayJsOrArrayCss($file, $type)
     {
         return array($type => array($file));
     }
 
+    /**
+     * @param $file
+     * @param bool $cdn
+     */
     public function addJs($file, $cdn = false)
     {
+
         $this->_add($this->_transformFileArrayJsOrArrayCss($file, 'js'), $cdn);
     }
 
+    /**
+     * @param $file
+     */
     public function addCdnJs($file)
     {
         $this->addJs($file, true);
     }
 
+    /**
+     * @param $file
+     * @param bool $cdn
+     */
     public function addCss($file, $cdn = false)
     {
 
         $this->_add($this->_transformFileArrayJsOrArrayCss($file, 'css'), $cdn);
     }
 
+    /**
+     * @param $file
+     */
     public function addCdnCss($file)
     {
         $this->addCss($file, true);
     }
 
-
+    /**
+     * @param array|null $file
+     * @param bool $cdn
+     * @return bool
+     */
     public function outputCss(array $file = null, $cdn = false)
     {
         if ($file != null) {
