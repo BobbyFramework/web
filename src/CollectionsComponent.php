@@ -1,8 +1,10 @@
 <?php
+
 namespace BobbyFramework\Web;
 
 /**
  * Class CollectionsComponent
+ *
  * @package BobbyFramework\Web
  */
 abstract class CollectionsComponent extends Component
@@ -19,9 +21,10 @@ abstract class CollectionsComponent extends Component
 
     /**
      * CollectionsComponent constructor.
-     * @param string $name
+     *
+     * @param string             $name
      * @param ViewInterface|null $view
-     * @param array $options
+     * @param array              $options
      */
     public function __construct($name, ViewInterface $view = null, array $options = [])
     {
@@ -49,6 +52,7 @@ abstract class CollectionsComponent extends Component
 
     /**
      * @param string $name
+     *
      * @return  $this
      */
     public function setName($name)
@@ -75,10 +79,11 @@ abstract class CollectionsComponent extends Component
     }
 
     /**
-     * @param $file
+     * @param       $file
      * @param array $data
-     * @param bool $usingTemplateBase
-     * @param bool $usingPath
+     * @param bool  $usingTemplateBase
+     * @param bool  $usingPath
+     *
      * @return mixed
      */
     public function render($file, array $data = [], $usingTemplateBase = false, $usingPath = true)

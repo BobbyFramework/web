@@ -4,6 +4,7 @@ namespace BobbyFramework\Web\Components;
 
 /**
  * Class Site
+ *
  * @package BobbyFramework\Web
  */
 class Site
@@ -12,6 +13,7 @@ class Site
      * @var string
      */
     private $copyright;
+
     /**
      * @var string
      */
@@ -19,6 +21,7 @@ class Site
 
     /**
      * @param string $copyright
+     *
      * @return $this
      */
     public function setCopyright($copyright)
@@ -30,6 +33,7 @@ class Site
 
     /**
      * @param $pathLogo
+     *
      * @return $this
      */
     public function setPathLogo($pathLogo)

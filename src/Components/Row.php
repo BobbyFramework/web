@@ -4,6 +4,7 @@ namespace BobbyFramework\Web\Components;
 
 /**
  * Class Row
+ *
  * @package BobbyFramework\Web\Components
  */
 class Row
@@ -36,6 +37,7 @@ class Row
 
     /**
      * @param null $defaultValue
+     *
      * @return null
      */
     public function getTitle($defaultValue = null)

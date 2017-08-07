@@ -4,13 +4,15 @@ namespace BobbyFramework\Web;
 
 /**
  * Interface ViewInterface
+ *
  * @package BobbyFramework\Web
  */
 interface ViewInterface
 {
     /**
-     * @param $file
+     * @param       $file
      * @param array $data
+     *
      * @return mixed
      */
     public function get($file, array $data = []);
@@ -21,9 +23,10 @@ interface ViewInterface
     public static function create();
 
     /**
-     * @param $page
+     * @param       $page
      * @param array $data
+     *
      * @return mixed
      */
-    public function display($page, array $data = array());
+    public function display($page, array $data = []);
 }

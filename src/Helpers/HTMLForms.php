@@ -1,48 +1,54 @@
 <?php
+
 namespace BobbyFramework\Web\Helpers;
+
 /**
  * Class HTMLForms
+ *
  * @package BobbyFramework\Web\Helpers
  */
 class HTMLForms
 {
-
     /**
      * @param string $attributes
      * @param string $content
+     *
      * @return string
      */
     public static function button($attributes = '', $content = '')
     {
 
-        $defaults = array('name' => ((!is_array($attributes)) ? $attributes : ''), 'href' => '#');
+        $defaults = ['name' => ((!is_array($attributes)) ? $attributes : ''), 'href' => '#'];
 
         if (is_array($attributes) AND isset($attributes['content'])) {
             $content = $attributes['content'];
             unset($attributes['content']); // content is not an attribute
         }
 
-        return "<button " . HTMLElements::arrayToAttributes(array_merge($defaults, $attributes)) . ">" . $content . "</button>";
+        return "<button " . HTMLElements::arrayToAttributes(array_merge($defaults,
+                $attributes)) . ">" . $content . "</button>";
     }
 
     /**
      * @param string $attributes
+     *
      * @return string
      */
     public static function input($attributes = '')
     {
-        $defaults = array('type' => ((!is_array($attributes)) ? $attributes : 'text'), 'name' => '');
+        $defaults = ['type' => ((!is_array($attributes)) ? $attributes : 'text'), 'name' => ''];
 
         return "<input " . HTMLElements::arrayToAttributes(array_merge($defaults, $attributes)) . "/>";
     }
 
     /**
      * @param string $attributes
-     * @param $options
-     * @param array $selected
+     * @param        $options
+     * @param array  $selected
+     *
      * @return string
      */
-    public static function select($attributes = '', $options, $selected = array())
+    public static function select($attributes = '', $options, $selected = [])
     {
 
         $html = '<select ' . HTMLElements::arrayToAttributes($attributes) . '  >';
@@ -54,7 +60,7 @@ class HTMLForms
                 unset($value['content']); // content is not an attribute
             }
 
-            if(in_array($value['value'],$selected)) {
+            if (in_array($value['value'], $selected)) {
                 $value['selected'] = 'selected';
             }
 

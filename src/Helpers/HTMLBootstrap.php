@@ -1,4 +1,5 @@
 <?php
+
 namespace BobbyFramework\Web\Helpers;
 
 /**
@@ -11,6 +12,7 @@ class HTMLBootstrap extends HTMLElements
     /**
      * @param $caption
      * @param $options
+     *
      * @return mixed
      */
     private static function _dropdown($caption, $options)
@@ -19,9 +21,7 @@ class HTMLBootstrap extends HTMLElements
         $options['caption'] = $caption . ' ';
         $options['size'] = isset($options['size']) ? $options['size'] : null;
 
-        $group = (isset($options['groupable']) && $options['groupable'])
-        || (isset($options['split']) && $options['split'])
-        || (isset($options['align']) && 'right' === $options['align']) ? 'btn-group' : null;
+        $group = (isset($options['groupable']) && $options['groupable']) || (isset($options['split']) && $options['split']) || (isset($options['align']) && 'right' === $options['align']) ? 'btn-group' : null;
 
         $direction = isset($options['direction']) && $options['direction'] === 'up' ? 'dropup' : 'dropdown';
 
@@ -54,13 +54,15 @@ class HTMLBootstrap extends HTMLElements
 
         unset($options['context']);
         unset($options['size']);
+
         return $options;
     }
 
     /**
-     * @param $caption
+     * @param       $caption
      * @param array $options
-     * @param null $navs
+     * @param null  $navs
+     *
      * @return string
      */
     public static function dropdown($caption, $options = [], $navs = null)
@@ -82,10 +84,10 @@ class HTMLBootstrap extends HTMLElements
 
 
         $html .= '<button ' . self::arrayToAttributes([
-                'class' => 'dropdown-toggle ' . $options['button_class'],
-                'type' => 'button',
-                'id' => $options['id'],
-                'data-toggle' => 'dropdown'
+                'class'       => 'dropdown-toggle ' . $options['button_class'],
+                'type'        => 'button',
+                'id'          => $options['id'],
+                'data-toggle' => 'dropdown',
             ]) . '>';
 
         if (isset($options['split']) && $options['split']) {
@@ -98,9 +100,9 @@ class HTMLBootstrap extends HTMLElements
         $html .= '</button>';
 
         $html .= '<ul ' . self::arrayToAttributes([
-                'class' => $options['list_class'],
-                'role' => 'menu',
-                'aria-labelledby' => $options['id']
+                'class'           => $options['list_class'],
+                'role'            => 'menu',
+                'aria-labelledby' => $options['id'],
             ]) . '>';
 
         foreach ($yield as $value) {

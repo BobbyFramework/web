@@ -7,6 +7,7 @@ use BobbyFramework\Web\Components\Navs\NavCollections;
 
 /**
  * Class Navs
+ *
  * @package BobbyFramework\Web\Managers
  */
 class Navs
@@ -27,18 +28,21 @@ class Navs
 
     /**
      * @param string $key
-     * @param Nav $nav
+     * @param Nav    $nav
+     *
      * @return Navs $this
      */
     public function set($key, Nav $nav)
     {
         //todo verifier exist
         $this->navs[$key]->add($nav);
+
         return $this;
     }
 
     /**
      * @param string $key
+     *
      * @return NavCollections
      */
     public function get($key)
@@ -56,6 +60,7 @@ class Navs
 
     /**
      * @param $key
+     *
      * @return bool
      */
     public function has($key)

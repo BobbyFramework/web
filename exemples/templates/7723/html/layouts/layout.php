@@ -1,13 +1,13 @@
 <html>
 <head>
-    <?php $view->display("partials/css"); ?>
+    <?php $template->display("partials/css"); ?>
 </head>
 <body>
-<?php echo $view->getPartial('header_1'); ?>
-<?php echo $view->getPartial('nav'); ?>
-<?php echo $view->getContent(); ?>
+<?php echo $template->getPartial('header_1'); ?>
+<?php echo $template->getPartial('nav'); ?>
+<?php echo $template->getContent(); ?>
 
-<?php echo $view->getPartial('footer_1'); ?>
+<?php echo $template->getPartial('footer_1'); ?>
 
 <?php echo $page->getAssets()->outputJs();?>
 </body>

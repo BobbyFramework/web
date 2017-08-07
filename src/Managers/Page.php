@@ -8,6 +8,7 @@ use BobbyFramework\Web\Components\Row;
 
 /**
  * Class Page
+ *
  * @package BobbyFramework\Web\Managers
  */
 class Page
@@ -15,7 +16,7 @@ class Page
     /**
      * @var
      */
-    protected $_rows;
+    protected $rows;
 
     /**
      * @var Breadcrumb|null $breadcrumb
@@ -89,7 +90,7 @@ class Page
      */
     public function addRow(Row $row)
     {
-        $this->_rows[] = $row;
+        $this->rows[] = $row;
     }
 
     /**
@@ -97,7 +98,7 @@ class Page
      */
     public function getRows()
     {
-        return $this->_rows;
+        return $this->rows;
     }
 
     /**
@@ -110,6 +111,7 @@ class Page
 
     /**
      * @param Assets $assets
+     *
      * @return $this
      */
     public function setAssets(Assets $assets)
@@ -137,11 +139,13 @@ class Page
 
     /**
      * @param Breadcrumb $breadcrumb
+     *
      * @return Page $this
      */
     public function setBreadcrumb(Breadcrumb $breadcrumb)
     {
         $this->breadcrumb = $breadcrumb;
+
         return $this;
     }
 
@@ -171,6 +175,7 @@ class Page
 
     /**
      * @param string $title
+     *
      * @return Page $this
      */
     public function setTitle($title)
@@ -190,6 +195,7 @@ class Page
 
     /**
      * @param string $metaDescription
+     *
      * @return $this
      */
     public function setMetaDescription($metaDescription)
@@ -209,6 +215,7 @@ class Page
 
     /**
      * @param string $metaKeywords
+     *
      * @return $this
      */
     public function setMetaKeywords($metaKeywords)
@@ -228,6 +235,7 @@ class Page
 
     /**
      * @param $metaAuthor
+     *
      * @return $this
      */
     public function setMetaAutor($metaAuthor)

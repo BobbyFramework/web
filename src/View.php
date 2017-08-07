@@ -6,6 +6,7 @@ use ArrayAccess;
 
 /**
  * Class View
+ *
  * @package BobbyFramework\Web
  */
 class View implements ArrayAccess, ViewInterface
@@ -31,6 +32,7 @@ class View implements ArrayAccess, ViewInterface
 
     /**
      * View constructor.
+     *
      * @param string $extension
      */
     public function __construct($extension = '.php')
@@ -40,6 +42,7 @@ class View implements ArrayAccess, ViewInterface
 
     /**
      * @param string $extension
+     *
      * @return View $this
      */
     public function setExtension($extension)
@@ -67,6 +70,7 @@ class View implements ArrayAccess, ViewInterface
 
     /**
      * @param string $path
+     *
      * @return View $this
      */
     public function setPath($path)
@@ -79,6 +83,7 @@ class View implements ArrayAccess, ViewInterface
     /**
      * @param string $var
      * @param string $value
+     *
      * @return View $this
      */
     public function setVar($var, $value)
@@ -92,8 +97,9 @@ class View implements ArrayAccess, ViewInterface
     }
 
     /**
-     * @param string $vars
+     * @param string      $vars
      * @param null|string $value
+     *
      * @return View $this
      */
     public function setVars($vars, $value = null)
@@ -103,11 +109,13 @@ class View implements ArrayAccess, ViewInterface
         } else {
             $this->vars[$vars] = $value;
         }
+
         return $this;
     }
 
     /**
      * @param string $file
+     *
      * @throws NoViewException
      */
     public function exists($file)
@@ -119,8 +127,9 @@ class View implements ArrayAccess, ViewInterface
 
     /**
      * @param string $file
-     * @param array $data
-     * @param bool $ext
+     * @param array  $data
+     * @param bool   $ext
+     *
      * @return string
      * @throws NoViewException
      * @throws \Exception
@@ -135,7 +144,8 @@ class View implements ArrayAccess, ViewInterface
 
     /**
      * @param string $file
-     * @param array $data
+     * @param array  $data
+     *
      * @return string
      * @throws \Exception
      */
@@ -155,6 +165,7 @@ class View implements ArrayAccess, ViewInterface
 
         $content = ob_get_contents();
         ob_end_clean();
+
         // Return the contents
         return $content;
     }
@@ -169,7 +180,8 @@ class View implements ArrayAccess, ViewInterface
 
     /**
      * @param string $file
-     * @param array $data
+     * @param array  $data
+     *
      * @return string
      * @throws NoViewException
      */
@@ -180,6 +192,7 @@ class View implements ArrayAccess, ViewInterface
 
     /**
      * @param $key
+     *
      * @return bool
      */
     public function __isset($key)
@@ -197,6 +210,7 @@ class View implements ArrayAccess, ViewInterface
 
     /**
      * @param $key
+     *
      * @return mixed
      */
     public function __get($key)
@@ -216,10 +230,13 @@ class View implements ArrayAccess, ViewInterface
 
     /**
      * Whether a offset exists
-     * @link http://php.net/manual/en/arrayaccess.offsetexists.php
+     *
+     * @link  http://php.net/manual/en/arrayaccess.offsetexists.php
+     *
      * @param mixed $offset <p>
-     * An offset to check for.
-     * </p>
+     *                      An offset to check for.
+     *                      </p>
+     *
      * @return boolean true on success or false on failure.
      * </p>
      * <p>
@@ -233,10 +250,13 @@ class View implements ArrayAccess, ViewInterface
 
     /**
      * Offset to retrieve
-     * @link http://php.net/manual/en/arrayaccess.offsetget.php
+     *
+     * @link  http://php.net/manual/en/arrayaccess.offsetget.php
+     *
      * @param mixed $offset <p>
-     * The offset to retrieve.
-     * </p>
+     *                      The offset to retrieve.
+     *                      </p>
+     *
      * @return mixed Can return all value types.
      * @since 5.0.0
      */
@@ -247,13 +267,16 @@ class View implements ArrayAccess, ViewInterface
 
     /**
      * Offset to set
-     * @link http://php.net/manual/en/arrayaccess.offsetset.php
+     *
+     * @link  http://php.net/manual/en/arrayaccess.offsetset.php
+     *
      * @param mixed $offset <p>
-     * The offset to assign the value to.
-     * </p>
-     * @param mixed $value <p>
-     * The value to set.
-     * </p>
+     *                      The offset to assign the value to.
+     *                      </p>
+     * @param mixed $value  <p>
+     *                      The value to set.
+     *                      </p>
+     *
      * @return void
      * @since 5.0.0
      */
@@ -264,10 +287,13 @@ class View implements ArrayAccess, ViewInterface
 
     /**
      * Offset to unset
-     * @link http://php.net/manual/en/arrayaccess.offsetunset.php
+     *
+     * @link  http://php.net/manual/en/arrayaccess.offsetunset.php
+     *
      * @param mixed $offset <p>
-     * The offset to unset.
-     * </p>
+     *                      The offset to unset.
+     *                      </p>
+     *
      * @return void
      * @since 5.0.0
      */
@@ -277,7 +303,7 @@ class View implements ArrayAccess, ViewInterface
     }
 
     /**
-     * @param $file
+     * @param       $file
      * @param array $data
      */
     public function display($file, array $data = [])

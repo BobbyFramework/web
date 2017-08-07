@@ -1,10 +1,12 @@
 <?php
 
 namespace BobbyFramework\Web\Components\Navs;
+
 use BobbyFramework\Web\EntityInterface;
 
 /**
  * Class Nav
+ *
  * @package BobbyFramework\Web\Components\Navs
  */
 class Nav implements EntityInterface
@@ -51,6 +53,7 @@ class Nav implements EntityInterface
 
     /**
      * Nav constructor.
+     *
      * @param null|string $content
      * @param null|string $href
      */
@@ -64,15 +67,19 @@ class Nav implements EntityInterface
     }
 
 
-    public function setName($id) {
+    public function setName($id)
+    {
         $this->name = $id;
     }
 
-    public function getName(){
+    public function getName()
+    {
         return $this->name;
     }
+
     /**
      * @param string $title
+     *
      * @return $this
      */
     public function setTitle($title)
@@ -110,6 +117,7 @@ class Nav implements EntityInterface
 
     /**
      * @param string $content
+     *
      * @return $this
      */
     public function setContent($content)
@@ -129,6 +137,7 @@ class Nav implements EntityInterface
 
     /**
      * @param string $alt
+     *
      * @return $this
      */
     public function setAlt($alt)
@@ -148,6 +157,7 @@ class Nav implements EntityInterface
 
     /**
      * @param boolean $status
+     *
      * @return $this
      */
     public function setStatus($status)
@@ -167,6 +177,7 @@ class Nav implements EntityInterface
 
     /**
      * @param string $href
+     *
      * @return $this
      */
     public function setHref($href)
@@ -186,6 +197,7 @@ class Nav implements EntityInterface
 
     /**
      * @param array $attributes
+     *
      * @return $this
      */
     public function setAttributes(array $attributes)
@@ -205,6 +217,7 @@ class Nav implements EntityInterface
 
     /**
      * @param array $nav
+     *
      * @return $this
      */
     public function setChildren($nav)

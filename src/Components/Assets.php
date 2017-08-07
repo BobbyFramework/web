@@ -6,6 +6,7 @@ use BobbyFramework\Web\Helpers\HTMLElements;
 
 /**
  * Class Assets
+ *
  * @package BobbyFramework\Web\Components
  */
 class Assets
@@ -13,12 +14,12 @@ class Assets
     /**
      * @var array
      */
-    private $arrayJS = array();
+    private $arrayJS = [];
 
     /**
      * @var array
      */
-    private $arrayCSS = array();
+    private $arrayCSS = [];
 
     /**
      * @var string
@@ -67,27 +68,28 @@ class Assets
 
     /**
      * @param array $listFiles
-     * @param bool $cdn
+     * @param bool  $cdn
      */
     public function _add(array $listFiles, $cdn = false)
     {
-        $itemAssets = array('js', 'css');
+        $itemAssets = ['js', 'css'];
 
         foreach ($itemAssets as $item) {
             if (array_key_exists($item, $listFiles)) {
                 if ($cdn === true) {
 
                     array_walk($listFiles[$item], function (&$value, $key) {
-                        if(isset( $value['src'])) {
+                        if (isset($value['src'])) {
                             $value['src'] = $this->cdn . $value['src'];
                         }
-                        if(isset( $value['href'])) {
+                        if (isset($value['href'])) {
                             $value['href'] = $this->cdn . $value['href'];
                         }
                     });
                 }
 
-                $this->{'_array' . strtoupper($item)} = array_merge($this->{'_array' . strtoupper($item)}, $listFiles[$item]);
+                $this->{'array' . strtoupper($item)} = array_merge($this->{'array' . strtoupper($item)},
+                    $listFiles[$item]);
             }
         }
     }
@@ -95,15 +97,16 @@ class Assets
     /**
      * @param $file
      * @param $type
+     *
      * @return array
      */
     private function _transformFileArrayJsOrArrayCss($file, $type)
     {
-        return array($type => array($file));
+        return [$type => [$file]];
     }
 
     /**
-     * @param $file
+     * @param      $file
      * @param bool $cdn
      */
     public function addJs($file, $cdn = false)
@@ -121,7 +124,7 @@ class Assets
     }
 
     /**
-     * @param $file
+     * @param      $file
      * @param bool $cdn
      */
     public function addCss($file, $cdn = false)
@@ -140,7 +143,8 @@ class Assets
 
     /**
      * @param array|null $file
-     * @param bool $cdn
+     * @param bool       $cdn
+     *
      * @return bool
      */
     public function outputCss(array $file = null, $cdn = false)
@@ -148,26 +152,31 @@ class Assets
         if ($file != null) {
             $this->addCss($file, $cdn);
         }
+
         return $this->_output($this->arrayCSS, 'css');
     }
 
     /**
-     * @param $arrayType
+     * @param        $arrayType
      * @param string $type
+     *
      * @return bool
      */
     private function _output($arrayType, $type = 'css')
     {
-        if (!is_array($arrayType))
+        if (!is_array($arrayType)) {
             return false;
+        }
 
         if (isset($arrayType) && count($arrayType) > 0) {
 
             foreach ($arrayType as $i => $item) {
                 if ($type === 'css') {
                     echo HTMLElements::link(null, $item);
-                } elseif ($type === 'js') {
-                    echo HTMLElements::script(null, $item);
+                } else {
+                    if ($type === 'js') {
+                        echo HTMLElements::script(null, $item);
+                    }
                 }
             }
         }

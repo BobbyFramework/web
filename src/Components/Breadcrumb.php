@@ -1,4 +1,5 @@
 <?php
+
 namespace BobbyFramework\Web\Components;
 
 use BobbyFramework\Web\ComponentInterface;
@@ -7,6 +8,7 @@ use BobbyFramework\Web\ViewInterface;
 
 /**
  * Class Breadcrumb
+ *
  * @package BobbyFramework\Web\Component
  */
 class Breadcrumb extends Component implements ComponentInterface
@@ -14,7 +16,7 @@ class Breadcrumb extends Component implements ComponentInterface
     /**
      * array $breadcrumbs
      */
-    public $breadcrumbs = array();
+    public $breadcrumbs = [];
 
     /**
      * @var int
@@ -28,8 +30,9 @@ class Breadcrumb extends Component implements ComponentInterface
 
     /**
      * Breadcrumb constructor.
+     *
      * @param ViewInterface $view
-     * @param array $options
+     * @param array         $options
      */
     public function __construct(ViewInterface $view, array $options = [])
     {
@@ -38,17 +41,17 @@ class Breadcrumb extends Component implements ComponentInterface
 
     /**
      * @param string $title
-     * @param bool $url
-     * @param array $attributes
+     * @param bool   $url
+     * @param array  $attributes
      */
-    public function add($title, $url = false, array $attributes = array())
+    public function add($title, $url = false, array $attributes = [])
     {
-        $this->breadcrumbs[$this->countChild] = array(
-            'content' => $title,
-            'url' => $url,
-            'attribute' => $attributes,
+        $this->breadcrumbs[$this->countChild] = [
+            'content'         => $title,
+            'url'             => $url,
+            'attribute'       => $attributes,
             'content_element' => false,
-        );
+        ];
 
         $this->countChild++;
     }
@@ -58,12 +61,12 @@ class Breadcrumb extends Component implements ComponentInterface
      */
     public function addSpecific($html)
     {
-        $this->breadcrumbs[$this->countChild] = array(
-            'content' => false,
-            'url' => false,
-            'attribute' => false,
-            'content_element' => $html
-        );
+        $this->breadcrumbs[$this->countChild] = [
+            'content'         => false,
+            'url'             => false,
+            'attribute'       => false,
+            'content_element' => $html,
+        ];
 
         $this->countChild++;
     }
@@ -73,17 +76,18 @@ class Breadcrumb extends Component implements ComponentInterface
      */
     public function active($title)
     {
-        $attributes = array(
-            'class' => 'active'
-        );
+        $attributes = [
+            'class' => 'active',
+        ];
         $this->add($title, false, $attributes);
     }
 
     /**
-     * @param $file
+     * @param       $file
      * @param array $data
-     * @param bool $usingTemplateBase
-     * @param bool $usingPath
+     * @param bool  $usingTemplateBase
+     * @param bool  $usingPath
+     *
      * @return mixed|string|void
      */
     public function render($file, array $data = [], $usingTemplateBase = false, $usingPath = true)
@@ -93,14 +97,19 @@ class Breadcrumb extends Component implements ComponentInterface
         }
         $data['breadcrumbs'] = $this->breadcrumbs;
 
-        return parent::render($file, $data, $usingTemplateBase, $usingPath);
+        parent::render($file, $data, $usingTemplateBase, $usingPath);
     }
 
-    /**
-     * @param array $attributes
-     */
-    public function display(array $attributes = array())
+	/**
+	 * @param       $file
+	 * @param array $data
+	 * @param bool  $usingTemplateBase
+	 * @param bool  $usingPath
+	 *
+	 * @internal param array $attributes
+	 */
+    public function display($file, array $data = [], $usingTemplateBase = false, $usingPath = true)
     {
-        echo $this->render($attributes);
+        echo $this->render($file, $data, $usingTemplateBase, $usingPath);
     }
 }

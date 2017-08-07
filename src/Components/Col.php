@@ -4,6 +4,7 @@ namespace BobbyFramework\Web\Components;
 
 /**
  * Class Col
+ *
  * @package BobbyFramework\Web\Components
  */
 class Col

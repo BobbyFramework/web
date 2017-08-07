@@ -1,5 +1,8 @@
 <div class="container">
-    <?php echo $page->getBreadcrumb()->render();?>
+
+    <?php echo $page->getBreadcrumb()->render('Elements/breadcrumb');?>
+
+
     <?php foreach ($page->getRows() as $row) : ?>
         <?php if ($row->hasTitle()) : ?>
             <div class="row">

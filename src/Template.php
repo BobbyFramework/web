@@ -3,7 +3,8 @@
 namespace BobbyFramework\Web;
 
 /**
- * Class View
+ * Class Template
+ *
  * @package BobbyFramework\Web
  */
 class Template implements ViewInterface
@@ -83,6 +84,7 @@ class Template implements ViewInterface
 
     /**
      * Template constructor.
+     *
      * @param null $path
      * @param null $pathBase
      */
@@ -93,9 +95,10 @@ class Template implements ViewInterface
     }
 
     /**
-     * @param $layout
+     * @param      $layout
      * @param bool $usingTemplateBase
      * @param bool $usingPath
+     *
      * @return Template $this
      * @throws \Exception
      */
@@ -106,13 +109,16 @@ class Template implements ViewInterface
             $this->layout = $layout;
             $this->layoutUsingPath = $usingPath;
             $this->layoutUsingTemplateBase = $usingTemplateBase;
-        } else throw new \Exception('Le layout ne peut pas etre redifinie dans le layout ');
+        } else {
+            throw new \Exception('Le layout ne peut pas etre redifinie dans le layout ');
+        }
 
         return $this;
     }
 
     /**
      * @param array $data
+     *
      * @return mixed
      */
     public function getLayout(array $data = [])
@@ -122,6 +128,7 @@ class Template implements ViewInterface
 
     /**
      * @param string $path
+     *
      * @return Template $this
      */
     public function setPath($path)
@@ -141,8 +148,9 @@ class Template implements ViewInterface
 
     /**
      * @param string $var
-     * @param $value
-     * @param bool $addReserved
+     * @param        $value
+     * @param bool   $addReserved
+     *
      * @return Template $this
      */
     public function setVar($var, $value, $addReserved = false)
@@ -159,12 +167,14 @@ class Template implements ViewInterface
         if (true === $addReserved) {
             $this->setVarReserved($var);
         }
+
         return $this;
     }
 
     /**
      * @param array $vars
-     * @param bool $merge
+     * @param bool  $merge
+     *
      * @return Template $this
      * @internal param bool $clear
      */
@@ -175,6 +185,7 @@ class Template implements ViewInterface
         } else {
             $this->vars = $vars;
         }
+
         return $this;
     }
 
@@ -197,6 +208,7 @@ class Template implements ViewInterface
 
     /**
      * @param string $key
+     *
      * @return mixed
      */
     public function getVar($key)
@@ -206,9 +218,10 @@ class Template implements ViewInterface
 
     /**
      * @param array $data
+     *
      * @return string
      */
-    public function render(array $data = array())
+    public function render(array $data = [])
     {
         if (false === $this->isLayout) {
             throw new \RuntimeException('No Layout defined ', self::NO_LAYOUT);
@@ -229,6 +242,7 @@ class Template implements ViewInterface
 
     /**
      * @param string $path
+     *
      * @return Template $this
      */
     public function setPathBase($path)
@@ -247,9 +261,10 @@ class Template implements ViewInterface
     }
 
     /**
-     * @param $file
+     * @param       $file
      * @param array $data
-     * @param bool $ext
+     * @param bool  $ext
+     *
      * @return string
      */
     public function get($file, array $data = [], $ext = true)
@@ -259,9 +274,10 @@ class Template implements ViewInterface
 
     /**
      * @param string $file
-     * @param array $data
-     * @param bool $usingTemplateBase
-     * @param bool $usingPath
+     * @param array  $data
+     * @param bool   $usingTemplateBase
+     * @param bool   $usingPath
+     *
      * @return string
      */
     public function getView($file, array $data = [], $usingTemplateBase = false, $usingPath = true)
@@ -270,15 +286,16 @@ class Template implements ViewInterface
     }
 
     /**
-     * @param string $file
-     * @param array $data
-     * @param bool $usingTemplateBase
-     * @param bool $usingPath
+     * @param string      $file
+     * @param array       $data
+     * @param bool        $usingTemplateBase
+     * @param bool        $usingPath
      * @param null|string $contextViewParent
+     *
      * @return string
      * @throws NoViewException
      */
-    protected function _get($file, $data = array(), $usingTemplateBase = false, $usingPath = true, $contextViewParent = null)
+    protected function _get($file, $data = [], $usingTemplateBase = false, $usingPath = true, $contextViewParent = null)
     {
         $this->setVars($data, true);
 
@@ -311,6 +328,7 @@ class Template implements ViewInterface
                     if (false === is_null($contextViewParent)) {
                         exit('context => ' . $e->getMessage());
                     }
+
                     //La view definie n'existe pas => default View app current
                     return $this->_get($this->getPathBase() . $file, $this->getVars(), true, false, $e->getNoFile());
                 }
@@ -322,12 +340,13 @@ class Template implements ViewInterface
 
     /**
      * @param string $file
-     * @param array $data
-     * @param bool $usingTemplateBase
-     * @param bool $usingPath
+     * @param array  $data
+     * @param bool   $usingTemplateBase
+     * @param bool   $usingPath
+     *
      * @return string|void
      */
-    public function display($file, array $data = array(), $usingTemplateBase = false, $usingPath = true)
+    public function display($file, array $data = [], $usingTemplateBase = false, $usingPath = true)
     {
         echo $this->getView($file, $data, $usingTemplateBase, $usingPath);
     }
@@ -343,8 +362,9 @@ class Template implements ViewInterface
 
     /**
      * @param string $file
-     * @param bool $usingTemplateBase
-     * @param bool $usingPath
+     * @param bool   $usingTemplateBase
+     * @param bool   $usingPath
+     *
      * @return Template $this
      */
     public function setContent($file, $usingTemplateBase = false, $usingPath = true)
@@ -352,25 +372,28 @@ class Template implements ViewInterface
         $this->content = $file;
         $this->contentPath = $usingPath;
         $this->contentTemplateBase = $usingTemplateBase;
+
         return $this;
     }
 
     /**
      * @param array $data
+     *
      * @return string
      */
-    public function getContent(array $data = array())
+    public function getContent(array $data = [])
     {
         if ($this->contentIsData) {
             return $this->content;
         }
+
         return $this->getView($this->content, $data, $this->contentTemplateBase, $this->contentPath);
     }
 
     /**
      * @param array $data
      */
-    public function displayContent(array $data = array())
+    public function displayContent(array $data = [])
     {
         echo $this->getContent($data);
     }
@@ -386,23 +409,26 @@ class Template implements ViewInterface
     /**
      * @param string $key
      * @param string $file
-     * @param bool $usingTemplateBase
-     * @param bool $usingPath
+     * @param bool   $usingTemplateBase
+     * @param bool   $usingPath
+     *
      * @return Template $this
      */
     public function setPartial($key, $file, $usingTemplateBase = false, $usingPath = true)
     {
         $this->partials[$key] = [
-            'content' => $file,
+            'content'           => $file,
             'usingTemplateBase' => $usingTemplateBase,
-            'usingPath' => $usingPath,
-            'isContent' => false
+            'usingPath'         => $usingPath,
+            'isContent'         => false,
         ];
+
         return $this;
     }
 
     /**
      * @param string $key
+     *
      * @return bool
      */
     public function hasPartials($key)
@@ -420,19 +446,20 @@ class Template implements ViewInterface
 
     /**
      * @param string $key
-     * @param array $data
+     * @param array  $data
      */
-    public function displayPartial($key, array $data = array())
+    public function displayPartial($key, array $data = [])
     {
         echo $this->getPartial($key, $data);
     }
 
     /**
      * @param string $key
-     * @param array $data
+     * @param array  $data
+     *
      * @return string
      */
-    public function getPartial($key, array $data = array())
+    public function getPartial($key, array $data = [])
     {
 
         if (array_key_exists($key, $this->getPartials())) {
@@ -455,8 +482,8 @@ class Template implements ViewInterface
     public function addPartial($key, $content)
     {
         $this->partials[$key] = [
-            'content' => $content,
-            'isContent' => true
+            'content'   => $content,
+            'isContent' => true,
         ];
     }
 
@@ -469,22 +496,13 @@ class Template implements ViewInterface
     }
 
     /**
-     * @param string $key
+     * @param string      $key
      * @param null|string $defaultValue
+     *
      * @return null|string
      */
     public function getPartialsByKey($key, $defaultValue = null)
     {
         return isset($this->partials[$key]) ? $this->partials[$key] : $defaultValue;
-    }
-
-    /**
-     * reset all
-     */
-    public function reset()
-    {
-        $this->content = null;
-        $this->partials = [];
-        //TODO implement other...
     }
 }
