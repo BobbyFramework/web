@@ -1,6 +1,10 @@
 <?php
 namespace BobbyFramework\Web;
 
+/**
+ * Class CollectionsComponent
+ * @package BobbyFramework\Web
+ */
 abstract class CollectionsComponent extends Component
 {
     /**

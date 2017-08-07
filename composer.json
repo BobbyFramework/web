@@ -1,6 +1,6 @@
 {
   "name": "bobby-framework/web",
-  "description" : "A PHP session library",
+  "description" : "A web library",
   "authors": [
     {
       "name": "nicolas wallerand",
@@ -15,6 +15,6 @@
     }
   },
   "require":{
-    "php": ">=5.3.0"
+    "php": ">=5.6.0"
   }
 }

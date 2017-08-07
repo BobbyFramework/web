@@ -13,24 +13,24 @@ class Assets
     /**
      * @var array
      */
-    private $_arrayJS = array();
+    private $arrayJS = array();
 
     /**
      * @var array
      */
-    private $_arrayCSS = array();
+    private $arrayCSS = array();
 
     /**
      * @var string
      */
-    private $_cdn = '';
+    private $cdn = '';
 
     /**
      * @param $cdn
      */
     public function setCdn($cdn)
     {
-        $this->_cdn = $cdn;
+        $this->cdn = $cdn;
     }
 
     /**
@@ -38,7 +38,7 @@ class Assets
      */
     public function getCdn()
     {
-        return $this->_cdn;
+        return $this->cdn;
     }
 
     /**
@@ -46,7 +46,7 @@ class Assets
      */
     public function displayCdn($file)
     {
-        echo $this->_cdn . $file;
+        echo $this->cdn . $file;
     }
 
     /**
@@ -54,7 +54,7 @@ class Assets
      */
     public function addCdn(array $listFiles)
     {
-        $this->_add($listFiles, $this->_cdn);
+        $this->_add($listFiles, $this->cdn);
     }
 
     /**
@@ -79,10 +79,10 @@ class Assets
 
                     array_walk($listFiles[$item], function (&$value, $key) {
                         if(isset( $value['src'])) {
-                            $value['src'] = $this->_cdn . $value['src'];
+                            $value['src'] = $this->cdn . $value['src'];
                         }
                         if(isset( $value['href'])) {
-                            $value['href'] = $this->_cdn . $value['href'];
+                            $value['href'] = $this->cdn . $value['href'];
                         }
                     });
                 }
@@ -148,7 +148,7 @@ class Assets
         if ($file != null) {
             $this->addCss($file, $cdn);
         }
-        return $this->_output($this->_arrayCSS, 'css');
+        return $this->_output($this->arrayCSS, 'css');
     }
 
     /**
@@ -178,7 +178,7 @@ class Assets
      */
     public function outputJs()
     {
-        return $this->_output($this->_arrayJS, 'js');
+        return $this->_output($this->arrayJS, 'js');
     }
 
     /**
@@ -186,7 +186,7 @@ class Assets
      */
     public function hasJs()
     {
-        return !empty($this->_arrayJS);
+        return !empty($this->arrayJS);
     }
 
     /**
@@ -194,6 +194,6 @@ class Assets
      */
     public function hasCss()
     {
-        return !empty($this->_arrayCSS);
+        return !empty($this->arrayCSS);
     }
 }

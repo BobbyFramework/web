@@ -36,6 +36,12 @@ class HTMLForms
         return "<input " . HTMLElements::arrayToAttributes(array_merge($defaults, $attributes)) . "/>";
     }
 
+    /**
+     * @param string $attributes
+     * @param $options
+     * @param array $selected
+     * @return string
+     */
     public static function select($attributes = '', $options, $selected = array())
     {
 
@@ -60,7 +66,4 @@ class HTMLForms
 
         return $html . '</select>';
     }
-
-
-
 }

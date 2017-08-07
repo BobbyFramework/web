@@ -2,38 +2,68 @@
 
 namespace BobbyFramework\Web\Components;
 
+/**
+ * Class Row
+ * @package BobbyFramework\Web\Components
+ */
 class Row
 {
-    protected $_cols;
-    protected $_title;
+    /**
+     * @var
+     */
+    protected $cols;
 
+    /**
+     * @var
+     */
+    protected $title;
+
+    /**
+     * @param Col $cols
+     */
     public function addCols(Col $cols)
     {
-        $this->_cols[] = $cols;
+        $this->cols[] = $cols;
     }
 
+    /**
+     * @param $title
+     */
     public function setTitle($title)
     {
-        $this->_title = $title;
+        $this->title = $title;
     }
 
+    /**
+     * @param null $defaultValue
+     * @return null
+     */
     public function getTitle($defaultValue = null)
     {
-        return isset ($this->_title) ? $this->_title : $defaultValue;
+        return isset ($this->title) ? $this->title : $defaultValue;
     }
 
+    /**
+     * @return bool
+     */
     public function hasTitle()
     {
-        return isset ($this->_title);
+        return isset ($this->title);
     }
 
+    /**
+     * @return mixed
+     */
     public function getCols()
     {
-        return $this->_cols;
+        return $this->cols;
     }
 
+    /**
+     * @return int
+     */
     public function countCols()
     {
-        return count($this->_cols);
+        return count($this->cols);
     }
 }

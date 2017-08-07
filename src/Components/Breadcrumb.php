@@ -16,8 +16,14 @@ class Breadcrumb extends Component implements ComponentInterface
      */
     public $breadcrumbs = array();
 
+    /**
+     * @var int
+     */
     private $countChild = 0;
 
+    /**
+     *
+     */
     const FIRST_CHILD = 0;
 
     /**

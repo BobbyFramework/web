@@ -7,4 +7,5 @@ namespace BobbyFramework\Web;
  */
 interface EntityInterface
 {
+
 }

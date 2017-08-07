@@ -277,10 +277,8 @@ class View implements ArrayAccess, ViewInterface
     }
 
     /**
-     * @param string $file
+     * @param $file
      * @param array $data
-     * @return mixed
-     * @throws NoViewException
      */
     public function display($file, array $data = [])
     {

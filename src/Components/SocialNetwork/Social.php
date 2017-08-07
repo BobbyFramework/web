@@ -57,24 +57,35 @@ class Social implements EntityInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getLabel()
     {
         return $this->label;
     }
 
+    /**
+     * @return string
+     */
     public function getIcon()
     {
         return $this->icon;
     }
 
+    /**
+     * @return mixed
+     */
     public function getHref()
     {
         return $this->optionsLink['href'];
     }
 
+    /**
+     * @return array
+     */
     public function getOptionsLink()
     {
         return $this->optionsLink;
     }
-
 }

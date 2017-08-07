@@ -14,9 +14,9 @@ abstract class Component
     protected $_options = [];
 
     /**
-     * @var ViewInterface $_adapter
+     * @var ViewInterface $adapter
      */
-    protected $_adapter;
+    protected $adapter;
 
     /**
      * Component constructor.
@@ -25,7 +25,7 @@ abstract class Component
      */
     public function __construct(ViewInterface $view, array $options = [])
     {
-        $this->_adapter = $view;
+        $this->adapter = $view;
         $this->setOptions($options);
     }
 
@@ -34,7 +34,7 @@ abstract class Component
      */
     public function getAdapter()
     {
-        return $this->_adapter;
+        return $this->adapter;
     }
 
     /**
@@ -88,8 +88,8 @@ abstract class Component
      */
     public function render($file, array $data = [], $usingTemplateBase = false, $usingPath = true)
     {
-        if ($this->_adapter instanceof Template) {
-            return $this->_adapter->getView($file, $data, $usingTemplateBase, $usingPath);
+        if ($this->adapter instanceof Template) {
+            return $this->adapter->getView($file, $data, $usingTemplateBase, $usingPath);
         }
 
         return $this->getAdapter()->get($file, $data);

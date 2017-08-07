@@ -316,6 +316,8 @@ class Template implements ViewInterface
                 }
             }
         }
+
+        exit('An unknown error occurred');
     }
 
     /**
@@ -485,5 +487,4 @@ class Template implements ViewInterface
         $this->partials = [];
         //TODO implement other...
     }
-
 }
