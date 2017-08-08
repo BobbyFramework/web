@@ -97,7 +97,7 @@ class Breadcrumb extends Component implements ComponentInterface
         }
         $data['breadcrumbs'] = $this->breadcrumbs;
 
-        parent::render($file, $data, $usingTemplateBase, $usingPath);
+        return parent::render($file, $data, $usingTemplateBase, $usingPath);
     }
 
 	/**
